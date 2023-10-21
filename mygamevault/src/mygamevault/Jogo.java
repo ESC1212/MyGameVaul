@@ -1,6 +1,6 @@
 package mygamevault;
 
-public class Jogo {
+public class Jogo extends player{
 public String getNome() {
 		return Nome;
 	}
@@ -25,30 +25,16 @@ public String getNome() {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public int getConc() {
-		return conc;
-	}
-	public void setConc(int conc) {
-		this.conc = conc;
-	}
 	public int getConctot() {
 		return conctot;
 	}
 	public void setConctot(int conctot) {
 		this.conctot = conctot;
 	}
-	public float getPerconc() {
-		return perconc;
-	}
-	public void setPerconc(float perconc) {
-		this.perconc = perconc;
-	}
 private String Nome;
 private String ano;
 private Float nota;
 private String desc;
-private int conc;
 private int conctot;
-private float perconc;
 
 }
