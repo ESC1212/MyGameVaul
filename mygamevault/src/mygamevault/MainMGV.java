@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 
 public class MainMGV {
+public static Perfil perfil1 = new Perfil();
+public static ArrayList<Jogo>gamelist = new ArrayList<>();
+static Scanner r = new Scanner(System.in);
 	
 	public static ArrayList<Jogo> addgame(ArrayList<Jogo> jogos) {
 		
@@ -36,7 +39,48 @@ public class MainMGV {
 		return (jogos);
 	}
 	
-	public static void showgame (ArrayList<Jogo> jogos){
+	public static void showgamecond (ArrayList<Jogo> jogos){
+		System.out.println("Como você deseja mostrar a lista?");
+		System.out.println("(1) Por ordem de de cadastro ou (2) por nota?");
+		int option = Integer.valueOf(r.nextLine());
+		switch (option ) {
+		case 1: {
+			showgame(gamelist);
+			break;
+		}
+		case 2: {
+			showgame2(gamelist);
+			break;
+		}
+		}
+
+		System.out.println("---------fim--------");
+		System.out.println();
+	}
+	private static void showgame2(ArrayList<Jogo> jogos) {
+		int gamecount = 1;
+		for (int i = 10; i == 0; i--) {
+			System.out.println("primeiro");
+			for (Jogo jogo : jogos) {
+				System.out.println("segundo");
+				if (jogo.getNota() == i) {
+					System.out.println();
+					System.out.println("----------"+gamecount+"----------");
+					System.out.println();
+					System.out.println("Nome: "+jogo.getNome());
+					System.out.println("Ano: "+jogo.getAno());
+					System.out.println("Nota: "+jogo.getNota());
+					System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
+					System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
+					System.out.println("Revew: "+jogo.getDesc());
+					System.out.println();
+					gamecount++;
+				}
+			}
+		}
+	}
+
+	private static void showgame(ArrayList<Jogo> jogos) {
 		int gamecount = 1;
 		for (Jogo jogo : jogos) {
 			System.out.println();
@@ -50,10 +94,8 @@ public class MainMGV {
 			System.out.println("Revew: "+jogo.getDesc());
 			System.out.println();
 			gamecount++;
-		}
-		System.out.println("---------fim--------");
-		System.out.println();
 	}
+}
 	
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
 		Scanner r = new Scanner(System.in);
@@ -171,14 +213,14 @@ public class MainMGV {
 	}
 	public static void main(String[] args) {
 		Scanner r = new Scanner(System.in);
-		ArrayList<Jogo>gamelist = new ArrayList<>();
+		showgame2(gamelist);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
 		String esc = r.nextLine();
 		
 		if (esc.equals("1")) {
 			System.out.println("Qual seu nome? ");
-			String nomeusuario = r.nextLine();
+
 			
 			
 			int escolha = 0;
@@ -208,7 +250,7 @@ public class MainMGV {
 					break;
 				}
 				case 4: {
-					showgame(gamelist);
+					showgamecond(gamelist);
 					gamelist = (delgame(gamelist));	
 					break;
 					}
@@ -224,4 +266,5 @@ public class MainMGV {
 			System.out.println("Você escolheu sair.");
 		}
 	}
+
 }
