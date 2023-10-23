@@ -58,26 +58,24 @@ static Scanner r = new Scanner(System.in);
 		System.out.println();
 	}
 	private static void showgame2(ArrayList<Jogo> jogos) {
-		int gamecount = 1;
-		for (int i = 10; i == 0; i--) {
-			System.out.println("primeiro");
-			for (Jogo jogo : jogos) {
-				System.out.println("segundo");
-				if (jogo.getNota() == i) {
-					System.out.println();
-					System.out.println("----------"+gamecount+"----------");
-					System.out.println();
-					System.out.println("Nome: "+jogo.getNome());
-					System.out.println("Ano: "+jogo.getAno());
-					System.out.println("Nota: "+jogo.getNota());
-					System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
-					System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
-					System.out.println("Revew: "+jogo.getDesc());
-					System.out.println();
-					gamecount++;
-				}
-			}
-		}
+	    int gamecount = 1;
+	    for (int i = 10; i >= 0; i--) {
+	        for (Jogo jogo : jogos) {
+	            if (jogo.getNota() == i) {
+	                System.out.println();
+	                System.out.println("----------"+gamecount+"----------");
+	                System.out.println();
+	                System.out.println("Nome: "+jogo.getNome());
+	                System.out.println("Ano: "+jogo.getAno());
+	                System.out.println("Nota: "+jogo.getNota());
+	                System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
+	                System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
+	                System.out.println("Revew: "+jogo.getDesc());
+	                System.out.println();
+	                gamecount++;
+	            }
+	        }
+	    }
 	}
 
 	private static void showgame(ArrayList<Jogo> jogos) {
@@ -213,7 +211,6 @@ static Scanner r = new Scanner(System.in);
 	}
 	public static void main(String[] args) {
 		Scanner r = new Scanner(System.in);
-		showgame2(gamelist);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
 		String esc = r.nextLine();
