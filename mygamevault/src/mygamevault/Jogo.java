@@ -36,5 +36,13 @@ private String ano;
 private Float nota;
 private String desc;
 private int conctot;
+private String genero;
+
+	public String getGenero() {
+		return genero;
+	}
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
 }

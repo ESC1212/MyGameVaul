@@ -1,9 +1,7 @@
 package mygamevault;
 
 public class Perfil {
-	private String nomeusu;
-	private String jogofav;
-	private String generofav;
+
 	
 	public String getNomeusu() {
 		return nomeusu;
@@ -24,6 +22,8 @@ public class Perfil {
 		this.generofav = generofav;
 	}
 	
-
+	private String nomeusu;
+	private String jogofav;
+	private String generofav;
 
 }

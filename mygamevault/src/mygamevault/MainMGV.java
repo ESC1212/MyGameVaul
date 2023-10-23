@@ -34,7 +34,9 @@ static Scanner r = new Scanner(System.in);
 		float tot = Float.valueOf(jogo.getConctot());
 		float con = Float.valueOf(jogo.getConc());
 		jogo.setPerconc((con/tot)*100);
-		
+		System.out.println("Gênero: ");
+		String gen = r.nextLine();
+		jogo.setGenero(gen);
 		jogos.add(jogo);
 		return (jogos);
 	}
@@ -67,6 +69,7 @@ static Scanner r = new Scanner(System.in);
 	                System.out.println();
 	                System.out.println("Nome: "+jogo.getNome());
 	                System.out.println("Ano: "+jogo.getAno());
+	                System.out.println("Gênero: "+jogo.getGenero());
 	                System.out.println("Nota: "+jogo.getNota());
 	                System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
 	                System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
@@ -86,6 +89,7 @@ static Scanner r = new Scanner(System.in);
 			System.out.println();
 			System.out.println("Nome: "+jogo.getNome());
 			System.out.println("Ano: "+jogo.getAno());
+			System.out.println("Gênero: "+jogo.getGenero());
 			System.out.println("Nota: "+jogo.getNota());
 			System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
 			System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
@@ -143,10 +147,11 @@ static Scanner r = new Scanner(System.in);
 					System.out.println("Qual informação você deseja deletar?");
 					System.out.println("Nome(1)");
 					System.out.println("Ano(2)");
-					System.out.println("Nota(3)");
-					System.out.println("conquistas totais(4)");
-					System.out.println("conquistas adiquiridas(5)");
-					System.out.println("Revew(6)");
+					System.out.println("Gênero(3)");
+					System.out.println("Nota(4)");
+					System.out.println("conquistas totais(5)");
+					System.out.println("conquistas adiquiridas(6)");
+					System.out.println("Revew(7)");
 					String game = r.nextLine();
 					switch (game) {
 					case "1" : {
@@ -197,13 +202,20 @@ static Scanner r = new Scanner(System.in);
 						jogo.setDesc(info);
 						break;
 					}
+					case "7":{
+						System.out.println("informação atual: "+jogo.getGenero());
+						System.out.println("Nova informação: ");
+						String info = r.nextLine();
+						jogo.setGenero(info);
+						break;
+					}
 					default : {
 						System.out.println("digite um numero valido.");
 					}
 					
 					}
 				} else {
-					System.out.println("então vai se fuder");
+					System.out.println("Mt feio isso Eduardo");
 				}
 			}
 		}
