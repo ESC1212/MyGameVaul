@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class MainMGV {
-public static Perfil perfil1 = new Perfil();
+public static Perfil perfil = new Perfil();
 public static ArrayList<Jogo>gamelist = new ArrayList<>();
 static Scanner r = new Scanner(System.in);
 	
@@ -100,24 +100,25 @@ static Scanner r = new Scanner(System.in);
 }
 	
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
+
 		Scanner r = new Scanner(System.in);
-		System.out.println("voce deseja deletar algun jogo? ");
+		System.out.println("voce deseja deletar algun jogo? (Y/N)");
 		String esc = r.nextLine();
-		while (esc.equals("Sim")) {
-			if (esc.equals("Sim")) {
+		while (esc.equals("Y")) {
+			if (esc.equals("Y")) {
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
 				int Delj = Integer.valueOf(r.nextLine());
-				if (Delj > 0) {
-					System.out.println();
-					System.out.println(jogos.get(Delj-1));
-					System.out.println();
-					System.out.println("E este jogo que voce deseja deletar? ");
+				Jogo joguinho =	jogos.get(Delj-1);
+				if (Delj > 0 && Delj <= jogos.size()+1) {
+					System.out.println("Jogo: " + joguinho.getNome());
+					System.out.println("É este jogo que voce deseja deletar? (Y/N)");
 					esc = r.nextLine();
-					if (esc.equals("Sim")) {
+					if (esc.equals("Y")) {
 						jogos.remove(Delj-1);
-						esc = "n";
+						System.out.println("Jogo deletado");
+						esc = "N";
 					} else {
-						System.out.println("voce deseja escolher outro jogo? ");
+						System.out.println("voce deseja deletar outro jogo? (Y/N)");
 						esc = r.nextLine();
 					}
 				} else {
@@ -130,19 +131,20 @@ static Scanner r = new Scanner(System.in);
 	}
 	
 	public static ArrayList<Jogo> edigame (ArrayList<Jogo> jogos) {
-		String esc = "sim";
-		while (esc.equals("sim")) {
+		String esc = "Y";
+		while (esc.equals("Y")) {
 			Scanner r = new Scanner(System.in);
 			System.out.println("Qual jogo voce deseja editar?  ");
 			int edij = Integer.valueOf(r.nextLine());
-			if (edij > 0) {
+			if (edij > 0 && edij <= jogos.size()+1) {
 				Jogo jogo = new Jogo();
 				System.out.println();
-				System.out.println(jogos.get(edij-1));
+				Jogo joguinho =	jogos.get(edij-1);
+				System.out.println("Jogo: " + joguinho.getNome());
 				System.out.println();
-				System.out.println("E este jogo que voce deseja editar? ");
+				System.out.println("E este jogo que voce deseja editar? (Y/N)");
 				esc = r.nextLine();
-				if (esc.equals("Sim")) {
+				if (esc.equals("Y")) {
 					jogo = jogos.get(edij-1);
 					System.out.println("Qual informação você deseja deletar?");
 					System.out.println("Nome(1)");
@@ -226,10 +228,13 @@ static Scanner r = new Scanner(System.in);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
 		String esc = r.nextLine();
+		perfil.setGenerofav("N/A");
+		perfil.setJogofav("N/A");
 		
 		if (esc.equals("1")) {
 			System.out.println("Qual seu nome? ");
-
+			perfil.setNomeusu(r.nextLine());
+			System.out.println(perfil.getNomeusu());
 			
 			
 			int escolha = 0;
@@ -250,7 +255,7 @@ static Scanner r = new Scanner(System.in);
 					break;
 				}
 				case 2: {
-					//botar um metodo aqui
+					editperfil();
 					break;
 				}
 				case 3: {
@@ -274,6 +279,49 @@ static Scanner r = new Scanner(System.in);
 		}else {
 			System.out.println("Você escolheu sair.");
 		}
+	}
+	private static void editperfil() {
+		Scanner r = new Scanner(System.in);
+		printperfil();
+		System.out.println("Deseja editar o perfil? (Y/N)");
+		String yn = r.nextLine();
+		System.out.println(yn);
+		while (yn.equals("Y")) {
+			System.out.println("Selecione o que você deseja editar: 1-Nome 2-Jogo Favorito 3-Gênero Favorito");
+			int opperfil = Integer.valueOf(r.nextLine());
+			switch(opperfil) {
+			case 1: {
+				System.out.println("Digite o novo nome de usuário: ");
+				perfil.setNomeusu(r.nextLine());
+				break;
+			}
+			case 2:{
+				System.out.println("Digite o novo jogo favorito: ");
+				perfil.setJogofav(r.nextLine());
+				break;
+			}
+			case 3:{
+				System.out.println("Digite o novo gênero favorito: ");
+				perfil.setGenerofav(r.nextLine());
+				break;
+			}
+			}
+			if (opperfil != 1 && opperfil != 2 && opperfil != 3) {
+				System.out.println("Erro, comando não compreendido");
+			}
+			System.out.println("Deseja continuar editando? (Y/N)");
+			yn = r.nextLine();
+		}
+		System.out.println("Novo Perfil: ");
+		printperfil();
+	}
+
+	private static void printperfil() {
+		System.out.println(" ");
+		System.out.println("Nome de usuário: " + perfil.getNomeusu());
+		System.out.println("Jogo Favorito: " + perfil.getJogofav());
+		System.out.println("Gênero Favorito: " + perfil.getGenerofav());
+		System.out.println(" ");
 	}
 
 }
