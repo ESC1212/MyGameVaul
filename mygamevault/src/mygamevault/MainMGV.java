@@ -43,7 +43,7 @@ static Scanner r = new Scanner(System.in);
 	
 	public static void showgamecond (ArrayList<Jogo> jogos){
 		System.out.println("Como você deseja mostrar a lista?");
-		System.out.println("(1) Por ordem de de cadastro ou (2) por nota?");
+		System.out.println("(1) Por ordem de de cadastro, (2) por nota ou (3) por ano?");
 		int option = Integer.valueOf(r.nextLine());
 		switch (option ) {
 		case 1: {
@@ -54,11 +54,16 @@ static Scanner r = new Scanner(System.in);
 			showgame2(gamelist);
 			break;
 		}
+		case 3: {
+			showgame3(gamelist);
+			break;
+		}
 		}
 
 		System.out.println("---------fim--------");
 		System.out.println();
 	}
+	
 	private static void showgame2(ArrayList<Jogo> jogos) {
 	    int gamecount = 1;
 	    for (int i = 10; i >= 0; i--) {
@@ -80,7 +85,29 @@ static Scanner r = new Scanner(System.in);
 	        }
 	    }
 	}
-
+	
+	private static void showgame3(ArrayList<Jogo> jogos) {
+		int gamecount = 1;
+	    for (int i = 2100; i >= 0; i--) {
+	        for (Jogo jogo : jogos) {
+	            if (i == Integer.valueOf(jogo.getAno())) {
+	                System.out.println();
+	                System.out.println("----------"+gamecount+"----------");
+	                System.out.println();
+	                System.out.println("Nome: "+jogo.getNome());
+	                System.out.println("Ano: "+jogo.getAno());
+	                System.out.println("Gênero: "+jogo.getGenero());
+	                System.out.println("Nota: "+jogo.getNota());
+	                System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
+	                System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
+	                System.out.println("Revew: "+jogo.getDesc());
+	                System.out.println();
+	                gamecount++;
+	            }
+	        }
+	    }
+	}
+	
 	private static void showgame(ArrayList<Jogo> jogos) {
 		int gamecount = 1;
 		for (Jogo jogo : jogos) {
@@ -146,14 +173,14 @@ static Scanner r = new Scanner(System.in);
 				esc = r.nextLine();
 				if (esc.equals("Y")) {
 					jogo = jogos.get(edij-1);
-					System.out.println("Qual informação você deseja deletar?");
+					System.out.println("Qual informação você deseja editar?");
 					System.out.println("Nome(1)");
 					System.out.println("Ano(2)");
-					System.out.println("Gênero(3)");
-					System.out.println("Nota(4)");
-					System.out.println("conquistas totais(5)");
-					System.out.println("conquistas adiquiridas(6)");
-					System.out.println("Revew(7)");
+					System.out.println("Nota(3)");
+					System.out.println("Conquistas totais(4)");
+					System.out.println("Conquistas adiquiridas(5)");
+					System.out.println("Revew(6)");
+					System.out.println("Genero(7)");
 					String game = r.nextLine();
 					switch (game) {
 					case "1" : {
@@ -216,14 +243,74 @@ static Scanner r = new Scanner(System.in);
 					}
 					
 					}
+					System.out.println("você deseja continuar a editar? (Y/N) ");
+					esc = r.nextLine();
 				} else {
-					System.out.println("Mt feio isso Eduardo");
+					System.out.println("Mt feio isso Douglas");
 				}
 			}
 		}
 		return (jogos);
 	}
+	
+	private static void editperfil(ArrayList<Jogo> jogos) {
+		Scanner r = new Scanner(System.in);
+		printperfil(jogos);
+		System.out.println("Deseja editar o perfil? (Y/N)");
+		String yn = r.nextLine();
+		System.out.println(yn);
+		while (yn.equals("Y")) {
+			System.out.println("Selecione o que você deseja editar: 1-Nome 2-Jogo Favorito 3-Gênero Favorito");
+			int opperfil = Integer.valueOf(r.nextLine());
+			switch(opperfil) {
+			case 1: {
+				System.out.println("Digite o novo nome de usuário: ");
+				perfil.setNomeusu(r.nextLine());
+				break;
+			}
+			case 2:{
+				System.out.println("Digite o novo jogo favorito: ");
+				perfil.setJogofav(r.nextLine());
+				break;
+			}
+			case 3:{
+				System.out.println("Digite o novo gênero favorito: ");
+				perfil.setGenerofav(r.nextLine());
+				break;
+			}
+			}
+			if (opperfil != 1 && opperfil != 2 && opperfil != 3) {
+				System.out.println("Erro, comando não compreendido");
+			}
+			System.out.println("Deseja continuar editando? (Y/N)");
+			yn = r.nextLine();
+		}
+		System.out.println("Novo Perfil: ");
+		printperfil(jogos);
+	}
+
+	private static void printperfil(ArrayList<Jogo> jogos) {
+		int conquistas = 0;
+		int conquistasj = 0;
+		for (Jogo jogo : jogos) {
+			conquistas = conquistas + jogo.getConc();
+			conquistasj = conquistasj + jogo.getConctot();
+		}
+		float conc = Float.valueOf(conquistas);
+		float tot = Float.valueOf(conquistasj);
+		float concpc = ((conc/tot)*100);
+		
+		System.out.println(" ");
+		System.out.println("Nome de usuário: " + perfil.getNomeusu());
+		System.out.println("Jogo Favorito: " + perfil.getJogofav());
+		System.out.println("Gênero Favorito: " + perfil.getGenerofav());
+		System.out.println("Número de jogos adicionados: "+jogos.size());
+		System.out.println("Conquistas: "+conquistas+"/"+conquistasj+" | "+concpc+"%");
+		System.out.println(" ");
+	}
+
 	public static void main(String[] args) {
+		test(gamelist); // alguns jogos para teste
 		Scanner r = new Scanner(System.in);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
@@ -255,7 +342,7 @@ static Scanner r = new Scanner(System.in);
 					break;
 				}
 				case 2: {
-					editperfil();
+					editperfil(gamelist);
 					break;
 				}
 				case 3: {
@@ -280,48 +367,61 @@ static Scanner r = new Scanner(System.in);
 			System.out.println("Você escolheu sair.");
 		}
 	}
-	private static void editperfil() {
-		Scanner r = new Scanner(System.in);
-		printperfil();
-		System.out.println("Deseja editar o perfil? (Y/N)");
-		String yn = r.nextLine();
-		System.out.println(yn);
-		while (yn.equals("Y")) {
-			System.out.println("Selecione o que você deseja editar: 1-Nome 2-Jogo Favorito 3-Gênero Favorito");
-			int opperfil = Integer.valueOf(r.nextLine());
-			switch(opperfil) {
-			case 1: {
-				System.out.println("Digite o novo nome de usuário: ");
-				perfil.setNomeusu(r.nextLine());
-				break;
-			}
-			case 2:{
-				System.out.println("Digite o novo jogo favorito: ");
-				perfil.setJogofav(r.nextLine());
-				break;
-			}
-			case 3:{
-				System.out.println("Digite o novo gênero favorito: ");
-				perfil.setGenerofav(r.nextLine());
-				break;
-			}
-			}
-			if (opperfil != 1 && opperfil != 2 && opperfil != 3) {
-				System.out.println("Erro, comando não compreendido");
-			}
-			System.out.println("Deseja continuar editando? (Y/N)");
-			yn = r.nextLine();
-		}
-		System.out.println("Novo Perfil: ");
-		printperfil();
+	
+	public static ArrayList<Jogo> test(ArrayList<Jogo> jogos){
+		
+		Jogo doom = new Jogo();
+		doom.setNome("Doom");
+		doom.setAno("1993");
+		doom.setNota(Float.valueOf("8"));
+		doom.setConctot(0);
+		doom.setConc(0);
+		doom.setDesc("'musica' Eu sei oque é **** 'musica', mas eu não vou te contar. 'musica'");
+		float tot = Float.valueOf(doom.getConctot());
+		float con = Float.valueOf(doom.getConc());
+		doom.setPerconc((con/tot)*100);
+		doom.setGenero("FPS");
+		jogos.add(doom);
+		
+		Jogo Doom = new Jogo();
+		Doom.setNome("Doom (2016)");
+		Doom.setAno("2016");
+		Doom.setNota(Float.valueOf("9"));
+		Doom.setConctot(54);
+		Doom.setConc(18);
+		Doom.setDesc("Jogo muito relaxante, recomendo para toda família");
+		tot = Float.valueOf(Doom.getConctot());
+		con = Float.valueOf(Doom.getConc());
+		Doom.setPerconc((con/tot)*100);
+		Doom.setGenero("FPS");
+		jogos.add(Doom);
+		
+		Jogo Ultrakill = new Jogo();
+		Ultrakill.setNome("Ultrakill");
+		Ultrakill.setAno("2020");
+		Ultrakill.setNota(Float.valueOf("10"));
+		Ultrakill.setConctot(0);
+		Ultrakill.setConc(0);
+		Ultrakill.setDesc("'may your L's be many... and your bitches be few'");
+		tot = Float.valueOf(Ultrakill.getConctot());
+		con = Float.valueOf(Ultrakill.getConc());
+		Ultrakill.setPerconc((con/tot)*100);
+		Ultrakill.setGenero("FPS");
+		jogos.add(Ultrakill);
+		
+		Jogo SeaOfThieves = new Jogo();
+		SeaOfThieves.setNome("Sea Of Thieves");
+		SeaOfThieves.setAno("2018");
+		SeaOfThieves.setNota(Float.valueOf("8"));
+		SeaOfThieves.setConctot(229);
+		SeaOfThieves.setConc(103);
+		SeaOfThieves.setDesc("Arr eu sou desenpregado... arr...");
+		tot = Float.valueOf(SeaOfThieves.getConctot());
+		con = Float.valueOf(SeaOfThieves.getConc());
+		SeaOfThieves.setPerconc((con/tot)*100);
+		SeaOfThieves.setGenero("Mundo Aberto, Multiplayer");
+		jogos.add(SeaOfThieves);
+		
+		return (jogos);
 	}
-
-	private static void printperfil() {
-		System.out.println(" ");
-		System.out.println("Nome de usuário: " + perfil.getNomeusu());
-		System.out.println("Jogo Favorito: " + perfil.getJogofav());
-		System.out.println("Gênero Favorito: " + perfil.getGenerofav());
-		System.out.println(" ");
-	}
-
 }
