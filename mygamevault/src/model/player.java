@@ -1,4 +1,4 @@
-package mygamevault;
+package model;
 
 public class player {
 	public float getPerconc() {

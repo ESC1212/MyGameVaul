@@ -1,7 +1,10 @@
-package mygamevault;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.Jogo;
+import model.Perfil;
 
 
 public class MainMGV {

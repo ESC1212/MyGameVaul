@@ -1,4 +1,4 @@
-package mygamevault;
+package model;
 
 public class Jogo extends player{
 public String getNome() {
