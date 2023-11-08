@@ -29,8 +29,7 @@ public class JogoDAO implements IListaDAO {
 
 	@Override
 	public ArrayList<Jogo> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return thegamelist;
 	}
 
 
