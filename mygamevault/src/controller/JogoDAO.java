@@ -1,13 +1,17 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.IListaDAO;
 import model.Jogo;
 
 public class JogoDAO implements IListaDAO {
+	
+	ArrayList <Jogo> thegamelist =  new ArrayList<>();
 
 	@Override
 	public boolean cadastrar(Jogo jogo) {
-		// TODO Auto-generated method stub
+		thegamelist.add(jogo);
 		return false;
 	}
 
@@ -24,9 +28,10 @@ public class JogoDAO implements IListaDAO {
 	}
 
 	@Override
-	public boolean listar(Jogo jogo) {
+	public ArrayList<Jogo> listar() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
 
 }

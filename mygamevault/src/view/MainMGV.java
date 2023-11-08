@@ -3,17 +3,19 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import controller.JogoDAO;
 import model.Jogo;
 import model.Perfil;
-
 
 public class MainMGV {
 public static Perfil perfil = new Perfil();
 public static ArrayList<Jogo>gamelist = new ArrayList<>();
 static Scanner r = new Scanner(System.in);
-	
+
+
+
 	public static ArrayList<Jogo> addgame(ArrayList<Jogo> jogos) {
-		
+		JogoDAO dao =new JogoDAO();
 		Jogo jogo = new Jogo();			
 		Scanner r = new Scanner(System.in);
 		System.out.println("Nome: ");
@@ -40,7 +42,7 @@ static Scanner r = new Scanner(System.in);
 		System.out.println("Gênero: ");
 		String gen = r.nextLine();
 		jogo.setGenero(gen);
-		jogos.add(jogo);
+		dao.cadastrar(jogo);
 		return (jogos);
 	}
 	
@@ -313,7 +315,7 @@ static Scanner r = new Scanner(System.in);
 	}
 
 	public static void main(String[] args) {
-		test(gamelist); // alguns jogos para teste
+		//test(gamelist); alguns jogos para teste
 		Scanner r = new Scanner(System.in);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
