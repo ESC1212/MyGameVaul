@@ -16,8 +16,13 @@ public class JogoDAO implements IListaDAO {
 	}
 
 	@Override
-	public boolean excluir(Jogo jogo) {
-		// TODO Auto-generated method stub
+	public boolean excluir(Jogo jogo, string id) {
+		for (Jogo jogo2 : thegamelist) {
+			if (jogo2.getId() == id) {
+				thegamelist.remove(jogo2);
+				return true;
+			}
+		}
 		return false;
 	}
 

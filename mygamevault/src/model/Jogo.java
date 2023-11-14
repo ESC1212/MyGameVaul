@@ -37,7 +37,14 @@ private Float nota;
 private String desc;
 private int conctot;
 private String genero;
+private String id; 
 
+	public String getId() {
+	return id;
+}
+public void setId(String id) {
+	this.id = id;
+}
 	public String getGenero() {
 		return genero;
 	}

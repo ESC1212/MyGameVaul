@@ -42,6 +42,10 @@ static Scanner r = new Scanner(System.in);
 		System.out.println("Gênero: ");
 		String gen = r.nextLine();
 		jogo.setGenero(gen);
+		System.out.println("ID: ");
+		String id = r.nextLine();
+		jogo.setId(id);
+
 		dao.cadastrar(jogo);
 		return (jogos);
 	}
@@ -132,7 +136,7 @@ static Scanner r = new Scanner(System.in);
 }
 	
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
-
+		JogoDAO dao =new JogoDAO();
 		Scanner r = new Scanner(System.in);
 		System.out.println("voce deseja deletar algun jogo? (Y/N)");
 		String esc = r.nextLine();
@@ -146,7 +150,8 @@ static Scanner r = new Scanner(System.in);
 					System.out.println("É este jogo que voce deseja deletar? (Y/N)");
 					esc = r.nextLine();
 					if (esc.equals("Y")) {
-						jogos.remove(Delj-1);
+						// jogos.remove(Delj-1);
+						// dao.excluir(joguinho, null)
 						System.out.println("Jogo deletado");
 						esc = "N";
 					} else {
