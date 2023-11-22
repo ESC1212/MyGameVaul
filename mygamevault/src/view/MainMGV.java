@@ -9,7 +9,7 @@ import model.Perfil;
 
 public class MainMGV {
 public static Perfil perfil = new Perfil();
-public static ArrayList<Jogo>gamelist = new ArrayList<>();
+//public static ArrayList<Jogo>gamelist = new ArrayList<>();
 static Scanner r = new Scanner(System.in);
 
 
@@ -43,7 +43,7 @@ static Scanner r = new Scanner(System.in);
 		String gen = r.nextLine();
 		jogo.setGenero(gen);
 		System.out.println("ID: ");
-		String id = r.nextLine();
+		int id = Integer.valueOf(r.nextLine());
 		jogo.setId(id);
 
 		dao.cadastrar(jogo);
@@ -51,20 +51,22 @@ static Scanner r = new Scanner(System.in);
 	}
 	
 	public static void showgamecond (ArrayList<Jogo> jogos){
+		JogoDAO dao =new JogoDAO();
 		System.out.println("Como você deseja mostrar a lista?");
 		System.out.println("(1) Por ordem de de cadastro, (2) por nota ou (3) por ano?");
 		int option = Integer.valueOf(r.nextLine());
 		switch (option ) {
 		case 1: {
-			showgame(gamelist);
+			
+			showgame(dao.listar());
 			break;
 		}
 		case 2: {
-			showgame2(gamelist);
+			showgame2(dao.listar());
 			break;
 		}
 		case 3: {
-			showgame3(gamelist);
+			showgame3(dao.listar());
 			break;
 		}
 		}
@@ -136,25 +138,27 @@ static Scanner r = new Scanner(System.in);
 }
 	
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
-		JogoDAO dao =new JogoDAO();
+		JogoDAO dao = JogoDAO.getInstancia();
 		Scanner r = new Scanner(System.in);
 		System.out.println("voce deseja deletar algun jogo? (Y/N)");
 		String esc = r.nextLine();
 		while (esc.equals("Y")) {
 			if (esc.equals("Y")) {
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
-				int Delj = Integer.valueOf(r.nextLine());
-				Jogo joguinho =	jogos.get(Delj-1);
-				if (Delj > 0 && Delj <= jogos.size()+1) {
-					System.out.println("Jogo: " + joguinho.getNome());
-					System.out.println("É este jogo que voce deseja deletar? (Y/N)");
-					esc = r.nextLine();
-					if (esc.equals("Y")) {
+				int id = Integer.valueOf(r.nextLine());
+				//Jogo joguinho =	jogos.get(Delj-1);
+				if (id > 0 && id <= jogos.size()+1) {
+					dao.excluir(id);
+					//System.out.println("Jogo: " + joguinho.getNome());
+					//System.out.println("É este jogo que voce deseja deletar? (Y/N)");
+					//esc = r.nextLine();
+					//if (esc.equals("Y")) {
 						// jogos.remove(Delj-1);
 						// dao.excluir(joguinho, null)
-						System.out.println("Jogo deletado");
-						esc = "N";
-					} else {
+						//System.out.println("Jogo deletado");
+						//esc = "N";
+					}
+					else {
 						System.out.println("voce deseja deletar outro jogo? (Y/N)");
 						esc = r.nextLine();
 					}
@@ -169,6 +173,8 @@ static Scanner r = new Scanner(System.in);
 	
 	public static ArrayList<Jogo> edigame (ArrayList<Jogo> jogos) {
 		String esc = "Y";
+		JogoDAO dao =new JogoDAO();
+		
 		while (esc.equals("Y")) {
 			Scanner r = new Scanner(System.in);
 			System.out.println("Qual jogo voce deseja editar?  ");
@@ -321,6 +327,7 @@ static Scanner r = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		//test(gamelist); alguns jogos para teste
+		JogoDAO dao =new JogoDAO();
 		Scanner r = new Scanner(System.in);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
 		System.out.println("Continuar(1), digite qualquer outra tecla para sair.");
@@ -356,12 +363,12 @@ static Scanner r = new Scanner(System.in);
 					break;
 				}
 				case 3: {
-					showgame(gamelist);
+					showgame(dao.listar());
 					edigame(gamelist);
 					break;
 				}
 				case 4: {
-					showgamecond(gamelist);
+					showgamecond(dao.listar());;
 					gamelist = (delgame(gamelist));	
 					break;
 					}
