@@ -148,7 +148,7 @@ static Scanner r = new Scanner(System.in);
 				int id = Integer.valueOf(r.nextLine());
 				//Jogo joguinho =	jogos.get(Delj-1);
 				if (id > 0 && id <= jogos.size()+1) {
-					dao.excluir(id);
+					dao.excluir(id); //Consertar saporra
 					//System.out.println("Jogo: " + joguinho.getNome());
 					//System.out.println("É este jogo que voce deseja deletar? (Y/N)");
 					//esc = r.nextLine();

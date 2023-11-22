@@ -29,7 +29,7 @@ public class JogoDAO implements IListaDAO {
 	}
 
 	@Override
-	public boolean excluir(int id) {
+	public boolean excluir (int id) { //Consertar saporra
 		Scanner r = new Scanner(System.in);
 		for (Jogo jogo2 : thegamelist) {
 			if (jogo2.getId() == id) {
