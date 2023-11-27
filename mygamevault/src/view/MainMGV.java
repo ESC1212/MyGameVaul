@@ -140,32 +140,20 @@ static Scanner r = new Scanner(System.in);
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
 		JogoDAO dao = JogoDAO.getInstancia();
 		Scanner r = new Scanner(System.in);
-		System.out.println("voce deseja deletar algun jogo? (Y/N)");
-		String esc = r.nextLine();
-		while (esc.equals("Y")) {
-			if (esc.equals("Y")) {
+		String del = "n";
+		//Jogo joguinho =	jogos.get(Delj-1);
+		System.out.println("você deseja deletar algun jogo? (1-sim 2-não)");
+		int esc = Integer.valueOf(r.nextLine());
+		if (esc == 1) {
+			while (del =="n") {
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
 				int id = Integer.valueOf(r.nextLine());
-				//Jogo joguinho =	jogos.get(Delj-1);
 				if (id > 0 && id <= jogos.size()+1) {
 					dao.excluir(id); //Consertar saporra
-					//System.out.println("Jogo: " + joguinho.getNome());
-					//System.out.println("É este jogo que voce deseja deletar? (Y/N)");
-					//esc = r.nextLine();
-					//if (esc.equals("Y")) {
-						// jogos.remove(Delj-1);
-						// dao.excluir(joguinho, null)
-						//System.out.println("Jogo deletado");
-						//esc = "N";
-					}
-					else {
-						System.out.println("voce deseja deletar outro jogo? (Y/N)");
-						esc = r.nextLine();
-					}
-				} else {
-					System.out.println("Digite um numero valido");
+					del = "y";
+				}else {
+					System.out.println("Insira um numero valido.");
 				}
-			}else {
 			}
 		}
 		return (jogos);
@@ -326,7 +314,6 @@ static Scanner r = new Scanner(System.in);
 	}
 
 	public static void main(String[] args) {
-		//test(gamelist); alguns jogos para teste
 		JogoDAO dao =new JogoDAO();
 		Scanner r = new Scanner(System.in);
 		System.out.println("Bem-Vindo ao MyGameVault, oque deseja fazer?");
@@ -355,21 +342,21 @@ static Scanner r = new Scanner(System.in);
 	
 				switch (escolha) {
 				case 1: {
-					gamelist = (addgame(gamelist));
+					addgame(dao.listar());
 					break;
 				}
 				case 2: {
-					editperfil(gamelist);
+					editperfil(dao.listar());
 					break;
 				}
 				case 3: {
 					showgame(dao.listar());
-					edigame(gamelist);
+					edigame(dao.listar());
 					break;
 				}
 				case 4: {
 					showgamecond(dao.listar());;
-					gamelist = (delgame(gamelist));	
+					delgame(dao.listar());	
 					break;
 					}
 				case 5: {

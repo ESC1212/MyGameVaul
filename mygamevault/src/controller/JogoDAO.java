@@ -8,10 +8,10 @@ import model.Jogo;
 
 public class JogoDAO implements IListaDAO {
 	
-	private static ArrayList <Jogo> thegamelist;
+	private static ArrayList <Jogo> thegamelist = new ArrayList<>();
 	private static JogoDAO instancia;
 	
-	private JogoDAO() {
+	public JogoDAO() {//private
 		
 	}
 	public static JogoDAO getInstancia() {
