@@ -30,15 +30,10 @@ public class JogoDAO implements IListaDAO {
 
 	@Override
 	public boolean excluir (int id) {
-		Scanner r = new Scanner(System.in);
+		
 		for (Jogo jogo2 : thegamelist) {
 			if (jogo2.getId() == id) {
-				jogo2.getNome();
-				System.out.println("Esse é o jogo que você deseja deletar? ");
-				String yn = r.nextLine();
-				if (yn == "Y") {
 				thegamelist.remove(jogo2);
-				}
 				return true;
 			}
 		}
@@ -47,6 +42,7 @@ public class JogoDAO implements IListaDAO {
 
 	@Override
 	public boolean editar(int id, String game, String info) {
+		// Switch no Main krl
 		Scanner r = new Scanner(System.in);
 		for (Jogo jogo2 : thegamelist) {
 			switch (game) {

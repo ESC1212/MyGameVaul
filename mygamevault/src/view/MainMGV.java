@@ -147,9 +147,19 @@ static Scanner r = new Scanner(System.in);
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
 				int id = Integer.valueOf(r.nextLine());
 				if (id > 0 && id <= jogos.size()+1) {
-					dao.excluir(id);
-					del = "y";
-				}else {
+					for (Jogo jogo2 : jogos) {
+						if (jogo2.getId() == id) {
+							jogo2.getNome();
+							System.out.println("Esse é o jogo que você deseja deletar? ");
+							del = r.nextLine();
+							if (del == "Y") {
+								dao.excluir(id);
+								del = "y";
+							}
+						}
+					}
+					
+				} else {
 					System.out.println("Insira um numero valido.");
 				}
 			}
@@ -181,7 +191,7 @@ static Scanner r = new Scanner(System.in);
 					System.out.println("Nota(3)");
 					System.out.println("Conquistas totais(4)");
 					System.out.println("Conquistas adiquiridas(5)");
-					System.out.println("Revew(6)");
+					System.out.println("Review(6)");
 					System.out.println("Genero(7)");
 					String game = r.nextLine();
 					System.out.println();
