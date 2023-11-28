@@ -9,7 +9,6 @@ import model.Perfil;
 
 public class MainMGV {
 public static Perfil perfil = new Perfil();
-//public static ArrayList<Jogo>gamelist = new ArrayList<>();
 static Scanner r = new Scanner(System.in);
 
 
@@ -83,7 +82,7 @@ static Scanner r = new Scanner(System.in);
 	                System.out.println();
 	                System.out.println("----------"+gamecount+"----------");
 	                System.out.println();
-	                System.out.println("Nome: "+jogo.getNome());
+	                System.out.println("Nome: "+jogo.getNome()+ " / Id: "+jogo.getId());
 	                System.out.println("Ano: "+jogo.getAno());
 	                System.out.println("Gênero: "+jogo.getGenero());
 	                System.out.println("Nota: "+jogo.getNota());
@@ -105,7 +104,7 @@ static Scanner r = new Scanner(System.in);
 	                System.out.println();
 	                System.out.println("----------"+gamecount+"----------");
 	                System.out.println();
-	                System.out.println("Nome: "+jogo.getNome());
+	                System.out.println("Nome: "+jogo.getNome()+ " / Id: "+jogo.getId());
 	                System.out.println("Ano: "+jogo.getAno());
 	                System.out.println("Gênero: "+jogo.getGenero());
 	                System.out.println("Nota: "+jogo.getNota());
@@ -125,7 +124,7 @@ static Scanner r = new Scanner(System.in);
 			System.out.println();
 			System.out.println("----------"+gamecount+"----------");
 			System.out.println();
-			System.out.println("Nome: "+jogo.getNome());
+			System.out.println("Nome: "+jogo.getNome()+ " / Id: "+jogo.getId());
 			System.out.println("Ano: "+jogo.getAno());
 			System.out.println("Gênero: "+jogo.getGenero());
 			System.out.println("Nota: "+jogo.getNota());
@@ -141,7 +140,6 @@ static Scanner r = new Scanner(System.in);
 		JogoDAO dao = JogoDAO.getInstancia();
 		Scanner r = new Scanner(System.in);
 		String del = "n";
-		//Jogo joguinho =	jogos.get(Delj-1);
 		System.out.println("você deseja deletar algun jogo? (1-sim 2-não)");
 		int esc = Integer.valueOf(r.nextLine());
 		if (esc == 1) {
@@ -149,7 +147,7 @@ static Scanner r = new Scanner(System.in);
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
 				int id = Integer.valueOf(r.nextLine());
 				if (id > 0 && id <= jogos.size()+1) {
-					dao.excluir(id); //Consertar saporra
+					dao.excluir(id);
 					del = "y";
 				}else {
 					System.out.println("Insira um numero valido.");
@@ -161,22 +159,22 @@ static Scanner r = new Scanner(System.in);
 	
 	public static ArrayList<Jogo> edigame (ArrayList<Jogo> jogos) {
 		String esc = "Y";
-		JogoDAO dao =new JogoDAO();
-		
+		//JogoDAO dao =new JogoDAO();
+		JogoDAO dao = JogoDAO.getInstancia();
+		showgame(dao.listar());
 		while (esc.equals("Y")) {
 			Scanner r = new Scanner(System.in);
 			System.out.println("Qual jogo voce deseja editar?  ");
-			int edij = Integer.valueOf(r.nextLine());
-			if (edij > 0 && edij <= jogos.size()+1) {
-				Jogo jogo = new Jogo();
+			int id = Integer.valueOf(r.nextLine());
+			if (id > 0 && id <= jogos.size()+1) {
 				System.out.println();
-				Jogo joguinho =	jogos.get(edij-1);
-				System.out.println("Jogo: " + joguinho.getNome());
+				Jogo edi =	jogos.get(id);
+				System.out.println("Jogo: " + edi.getNome());
 				System.out.println();
 				System.out.println("E este jogo que voce deseja editar? (Y/N)");
-				esc = r.nextLine();
-				if (esc.equals("Y")) {
-					jogo = jogos.get(edij-1);
+				String esc2 = r.nextLine();
+				if (esc2.equals("Y")) {
+					//here
 					System.out.println("Qual informação você deseja editar?");
 					System.out.println("Nome(1)");
 					System.out.println("Ano(2)");
@@ -186,71 +184,13 @@ static Scanner r = new Scanner(System.in);
 					System.out.println("Revew(6)");
 					System.out.println("Genero(7)");
 					String game = r.nextLine();
-					switch (game) {
-					case "1" : {
-						System.out.println("informação atual: "+jogo.getNome());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setNome(info);
-						break;
-					}
-					case "2" : {
-						System.out.println("informação atual: "+jogo.getAno());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setNome(info);
-						break;
-					}
-					case "3" : {
-						System.out.println("informação atual: "+jogo.getNota());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setNota(Float.valueOf(info));
-						break;
-					}
-					case "4" : {
-						System.out.println("informação atual: "+jogo.getConctot());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setConctot(Integer.valueOf(info));
-						float tot = Float.valueOf(jogo.getConctot());
-						float con = Float.valueOf(jogo.getConc());
-						jogo.setPerconc((con/tot)*100);
-						break;
-					}
-					case "5" : {
-						System.out.println("informação atual: "+jogo.getConc());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setConc(Integer.valueOf(info));
-						float tot = Float.valueOf(jogo.getConctot());
-						float con = Float.valueOf(jogo.getConc());
-						jogo.setPerconc((con/tot)*100);
-						break;
-					}
-					case "6" : {
-						System.out.println("informação atual: "+jogo.getDesc());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setDesc(info);
-						break;
-					}
-					case "7":{
-						System.out.println("informação atual: "+jogo.getGenero());
-						System.out.println("Nova informação: ");
-						String info = r.nextLine();
-						jogo.setGenero(info);
-						break;
-					}
-					default : {
-						System.out.println("digite um numero valido.");
-					}
+					System.out.println();
+					System.out.println("Nova informação: ");
+					String inf = r.nextLine();
+					dao.editar(id, game, inf);
 					
-					}
 					System.out.println("você deseja continuar a editar? (Y/N) ");
 					esc = r.nextLine();
-				} else {
-					System.out.println("Mt feio isso Douglas");
 				}
 			}
 		}
@@ -321,6 +261,7 @@ static Scanner r = new Scanner(System.in);
 		String esc = r.nextLine();
 		perfil.setGenerofav("N/A");
 		perfil.setJogofav("N/A");
+		test(dao.listar());
 		
 		if (esc.equals("1")) {
 			System.out.println("Qual seu nome? ");
@@ -385,6 +326,7 @@ static Scanner r = new Scanner(System.in);
 		float con = Float.valueOf(doom.getConc());
 		doom.setPerconc((con/tot)*100);
 		doom.setGenero("FPS");
+		doom.setId(1);
 		jogos.add(doom);
 		
 		Jogo Doom = new Jogo();
@@ -398,6 +340,7 @@ static Scanner r = new Scanner(System.in);
 		con = Float.valueOf(Doom.getConc());
 		Doom.setPerconc((con/tot)*100);
 		Doom.setGenero("FPS");
+		Doom.setId(2);
 		jogos.add(Doom);
 		
 		Jogo Ultrakill = new Jogo();
@@ -411,6 +354,7 @@ static Scanner r = new Scanner(System.in);
 		con = Float.valueOf(Ultrakill.getConc());
 		Ultrakill.setPerconc((con/tot)*100);
 		Ultrakill.setGenero("FPS");
+		Ultrakill.setId(3);
 		jogos.add(Ultrakill);
 		
 		Jogo SeaOfThieves = new Jogo();
@@ -424,6 +368,7 @@ static Scanner r = new Scanner(System.in);
 		con = Float.valueOf(SeaOfThieves.getConc());
 		SeaOfThieves.setPerconc((con/tot)*100);
 		SeaOfThieves.setGenero("Mundo Aberto, Multiplayer");
+		SeaOfThieves.setId(4);
 		jogos.add(SeaOfThieves);
 		
 		return (jogos);
