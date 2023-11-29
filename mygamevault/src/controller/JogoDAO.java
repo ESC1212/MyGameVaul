@@ -33,7 +33,7 @@ public class JogoDAO implements IListaDAO {
 		
 		for (Jogo jogo2 : thegamelist) {
 			if (jogo2.getId() == id) {
-				thegamelist.remove(jogo2);
+				thegamelist.remove(id);
 				return true;
 			}
 		}
