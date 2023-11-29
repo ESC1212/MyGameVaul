@@ -151,9 +151,19 @@ static Scanner r = new Scanner(System.in);
 				System.out.println("qual jogo voce deseja deletar? (digite o seu numero na lista) ");
 				int id = Integer.valueOf(r.nextLine());
 				if (id > 0 && id <= jogos.size()+1) {
-					dao.excluir(id);
-					del = "y";
-				}else {
+					for (Jogo jogo2 : jogos) {
+						if (jogo2.getId() == id) {
+							jogo2.getNome();
+							System.out.println("Esse é o jogo que você deseja deletar? ");
+							del = r.nextLine();
+							if (del == "Y") {
+								dao.excluir(id);
+								del = "y";
+							}
+						}
+					}
+					
+				} else {
 					System.out.println("Insira um numero valido.");
 				}
 			}
@@ -172,6 +182,7 @@ static Scanner r = new Scanner(System.in);
 			int id = Integer.valueOf(r.nextLine());
 			String inf = null;
 			if (id > 0 && id <= jogos.size()+1) {
+<<<<<<< HEAD
 				for (Jogo edi : jogos) {
 					if (edi.getId() == id) {
 						System.out.println();
@@ -263,6 +274,33 @@ static Scanner r = new Scanner(System.in);
 				}					
 			}else {
 				System.out.println("digite um numero valido.");
+=======
+				System.out.println();
+				Jogo edi =	jogos.get(id);
+				System.out.println("Jogo: " + edi.getNome());
+				System.out.println();
+				System.out.println("E este jogo que voce deseja editar? (Y/N)");
+				String esc2 = r.nextLine();
+				if (esc2.equals("Y")) {
+					//here
+					System.out.println("Qual informação você deseja editar?");
+					System.out.println("Nome(1)");
+					System.out.println("Ano(2)");
+					System.out.println("Nota(3)");
+					System.out.println("Conquistas totais(4)");
+					System.out.println("Conquistas adiquiridas(5)");
+					System.out.println("Review(6)");
+					System.out.println("Genero(7)");
+					String game = r.nextLine();
+					System.out.println();
+					System.out.println("Nova informação: ");
+					String inf = r.nextLine();
+					dao.editar(id, game, inf);
+					
+					System.out.println("você deseja continuar a editar? (Y/N) ");
+					esc = r.nextLine();
+				}
+>>>>>>> fd5fc7c006772d5e777947c1a3f9718c49fe8fd8
 			}
 			System.out.println("você deseja continuar a editar? (Y/N) ");
 			esc = r.nextLine();
