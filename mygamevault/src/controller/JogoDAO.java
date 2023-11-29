@@ -46,51 +46,38 @@ public class JogoDAO implements IListaDAO {
 	}
 
 	@Override
-	public boolean editar(int id, String game, String info) {
+	public boolean editar(int id, String info) {
 		Scanner r = new Scanner(System.in);
 		for (Jogo jogo2 : thegamelist) {
-			switch (game) {
-			case "1" : {
+			switch (id) {
+			case 1: {
 				jogo2.setNome(info);
 				break;
 			}
-			case "2" : {
-				jogo2.setNome(info);
+			case 2:{
+				jogo2.setAno(info);
 				break;
 			}
-			case "3" : {
+			case 3: {
 				jogo2.setNota(Float.valueOf(info));
 				break;
 			}
-			case "4" : {
-				info = r.nextLine();
+			case 4: {
 				jogo2.setConctot(Integer.valueOf(info));
-				float tot = Float.valueOf(jogo2.getConctot());
-				float con = Float.valueOf(jogo2.getConc());
-				jogo2.setPerconc((con/tot)*100);
 				break;
 			}
-			case "5" : {
-				info = r.nextLine();
+			case 5: {
 				jogo2.setConc(Integer.valueOf(info));
-				float tot = Float.valueOf(jogo2.getConctot());
-				float con = Float.valueOf(jogo2.getConc());
-				jogo2.setPerconc((con/tot)*100);
 				break;
 			}
-			case "6" : {
-				info = r.nextLine();
+			case 6: {
 				jogo2.setDesc(info);
 				break;
 			}
-			case "7":{
-				info = r.nextLine();
+			case 7: {
 				jogo2.setGenero(info);
 				break;
 			}
-			default : {
-				System.out.println("digite um numero valido.");
-			}	
 			}
 		}
 		return true;

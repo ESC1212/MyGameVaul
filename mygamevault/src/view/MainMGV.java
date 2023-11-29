@@ -52,7 +52,7 @@ static Scanner r = new Scanner(System.in);
 	public static void showgamecond (ArrayList<Jogo> jogos){
 		JogoDAO dao =new JogoDAO();
 		System.out.println("Como você deseja mostrar a lista?");
-		System.out.println("(1) Por ordem de de cadastro, (2) por nota ou (3) por ano?");
+		System.out.println("(1) Por Id, (2) por nota ou (3) por ano?");
 		int option = Integer.valueOf(r.nextLine());
 		switch (option ) {
 		case 1: {
@@ -120,21 +120,25 @@ static Scanner r = new Scanner(System.in);
 	
 	private static void showgame(ArrayList<Jogo> jogos) {
 		int gamecount = 1;
-		for (Jogo jogo : jogos) {
-			System.out.println();
-			System.out.println("----------"+gamecount+"----------");
-			System.out.println();
-			System.out.println("Nome: "+jogo.getNome()+ " / Id: "+jogo.getId());
-			System.out.println("Ano: "+jogo.getAno());
-			System.out.println("Gênero: "+jogo.getGenero());
-			System.out.println("Nota: "+jogo.getNota());
-			System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
-			System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
-			System.out.println("Revew: "+jogo.getDesc());
-			System.out.println();
-			gamecount++;
+		for (int i = 0; i < 999999 ; i++) {
+			for (Jogo jogo : jogos) {
+				if (jogo.getId() == i) {
+					System.out.println();
+					System.out.println("----------"+gamecount+"----------");
+					System.out.println();
+					System.out.println("Nome: "+jogo.getNome()+ " / Id: "+jogo.getId());
+					System.out.println("Ano: "+jogo.getAno());
+					System.out.println("Gênero: "+jogo.getGenero());
+					System.out.println("Nota: "+jogo.getNota());
+					System.out.println("Conquistas: "+jogo.getConc()+"/"+jogo.getConctot());
+					System.out.println("porcentagem de conquistas = "+jogo.getPerconc()+"%");
+					System.out.println("Revew: "+jogo.getDesc());
+					System.out.println();
+					gamecount++;
+				}
+			}
+		}
 	}
-}
 	
 	public static ArrayList<Jogo> delgame (ArrayList<Jogo> jogos) {
 		JogoDAO dao = JogoDAO.getInstancia();
@@ -159,40 +163,109 @@ static Scanner r = new Scanner(System.in);
 	
 	public static ArrayList<Jogo> edigame (ArrayList<Jogo> jogos) {
 		String esc = "Y";
-		//JogoDAO dao =new JogoDAO();
+		//JogoDAO dao = new JogoDAO();
 		JogoDAO dao = JogoDAO.getInstancia();
 		showgame(dao.listar());
 		while (esc.equals("Y")) {
 			Scanner r = new Scanner(System.in);
 			System.out.println("Qual jogo voce deseja editar?  ");
 			int id = Integer.valueOf(r.nextLine());
+			String inf = null;
 			if (id > 0 && id <= jogos.size()+1) {
-				System.out.println();
-				Jogo edi =	jogos.get(id);
-				System.out.println("Jogo: " + edi.getNome());
-				System.out.println();
-				System.out.println("E este jogo que voce deseja editar? (Y/N)");
-				String esc2 = r.nextLine();
-				if (esc2.equals("Y")) {
-					//here
-					System.out.println("Qual informação você deseja editar?");
-					System.out.println("Nome(1)");
-					System.out.println("Ano(2)");
-					System.out.println("Nota(3)");
-					System.out.println("Conquistas totais(4)");
-					System.out.println("Conquistas adiquiridas(5)");
-					System.out.println("Revew(6)");
-					System.out.println("Genero(7)");
-					String game = r.nextLine();
-					System.out.println();
-					System.out.println("Nova informação: ");
-					String inf = r.nextLine();
-					dao.editar(id, game, inf);
-					
-					System.out.println("você deseja continuar a editar? (Y/N) ");
-					esc = r.nextLine();
-				}
+				for (Jogo edi : jogos) {
+					if (edi.getId() == id) {
+						System.out.println();
+						System.out.println("Jogo: " + edi.getNome());
+						System.out.println();
+						System.out.println("E este jogo que voce deseja editar? (Y/N)");
+						String esc2 = r.nextLine();
+						if (esc2.equals("Y")) {
+							System.out.println("Qual informação você deseja editar?");
+							System.out.println("Nome(1)");
+							System.out.println("Ano(2)");
+							System.out.println("Nota(3)");
+							System.out.println("Conquistas totais(4)");
+							System.out.println("Conquistas adiquiridas(5)");
+							System.out.println("Revew(6)");
+							System.out.println("Genero(7)");
+							System.out.println();
+							String gam = r.nextLine();
+							switch (gam) {
+								case "1" : {
+									System.out.println("informação atual: "+edi.getNome());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									System.out.println();
+									int num = 1;
+									dao.editar(num, inf);
+									break;
+								}
+								case "2" : {
+									System.out.println("informação atual: "+edi.getAno());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									int num = 2;
+									dao.editar(num, inf);
+									break;
+								}
+								case "3" : {
+									System.out.println("informação atual: "+edi.getNota());
+									System.out.println("Nova informação: ");
+									System.out.println();
+									int num = 3;
+									dao.editar(num, inf);
+									break;
+								}
+								case "4" : {
+									System.out.println("informação atual: "+edi.getConctot());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									int num = 4;
+									dao.editar(num, inf);
+									float tot = Float.valueOf(edi.getConctot());
+									float con = Float.valueOf(edi.getConc());
+									edi.setPerconc((con/tot)*100);
+									break;
+								}
+								case "5" : {
+									System.out.println("informação atual: "+edi.getConc());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									int num = 5;
+									dao.editar(num, inf);
+									float tot = Float.valueOf(edi.getConctot());
+									float con = Float.valueOf(edi.getConc());
+									edi.setPerconc((con/tot)*100);
+									break;
+								}
+								case "6" : {
+									System.out.println("informação atual: "+edi.getDesc());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									int num = 6;
+									dao.editar(num, inf);
+									break;
+								}
+								case "7":{
+									System.out.println("informação atual: "+edi.getGenero());
+									System.out.println("Nova informação: ");
+									inf = r.nextLine();
+									int num = 7;
+									dao.editar(num, inf);
+									break;
+								}
+								default : {
+									System.out.println("digite um numero valido.");
+								}	
+							}
+						}		
+					}
+				}					
+			}else {
+				System.out.println("digite um numero valido.");
 			}
+			System.out.println("você deseja continuar a editar? (Y/N) ");
+			esc = r.nextLine();
 		}
 		return (jogos);
 	}
