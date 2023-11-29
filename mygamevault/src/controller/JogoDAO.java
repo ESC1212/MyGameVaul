@@ -41,12 +41,8 @@ public class JogoDAO implements IListaDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public boolean editar(int id, String info) {
-=======
-	public boolean editar(int id, String game, String info) {
-		// Switch no Main krl
->>>>>>> fd5fc7c006772d5e777947c1a3f9718c49fe8fd8
 		Scanner r = new Scanner(System.in);
 		for (Jogo jogo2 : thegamelist) {
 			switch (id) {
